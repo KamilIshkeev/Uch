@@ -36,7 +36,7 @@ namespace Uch.Pages
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            _mainWindow.MainFrame.NavigationService.Navigate(new EmpPage(_mainWindow));
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

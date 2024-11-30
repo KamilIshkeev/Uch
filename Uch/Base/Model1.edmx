@@ -4,15 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Ucheb_prModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "Ucheb_pr.dbo.Academic" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="Academic">
-          <Property Name="full_name" Type="nvarchar" MaxLength="60" />
-          <Property Name="date_bith" Type="date" />
-          <Property Name="specialise" Type="nvarchar" MaxLength="50" />
-          <Property Name="god_prisvoenia" Type="int" />
-        </EntityType>-->
+    <Schema Namespace="Хранилище Ucheb_prModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Application">
           <Key>
             <PropertyRef Name="Code" />
@@ -21,25 +13,6 @@
           <Property Name="Code" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="Number" Type="char" MaxLength="10" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "Ucheb_pr.dbo.Contry" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="Contry">
-          <Property Name="name" Type="nvarchar" MaxLength="60" />
-          <Property Name="capital" Type="nvarchar" MaxLength="60" />
-          <Property Name="squer" Type="int" />
-          <Property Name="population" Type="int" />
-          <Property Name="continent" Type="nvarchar" MaxLength="60" />
-        </EntityType>-->
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "Ucheb_pr.dbo.Countries" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="Countries">
-          <Property Name="CountryName" Type="nvarchar" MaxLength="60" />
-          <Property Name="Capital" Type="nvarchar" MaxLength="60" />
-          <Property Name="Continent" Type="nvarchar" MaxLength="60" />
-          <Property Name="Population" Type="int" />
-          <Property Name="Area" Type="float" />
-          <Property Name="GovernanceTypeID" Type="int" />
-        </EntityType>-->
         <EntityType Name="Countries_Ishkeev">
           <Key>
             <PropertyRef Name="CountryName" />
@@ -182,6 +155,20 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Ucheb_pr.dbo.Empols" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Empols">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="Last_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Position" Type="varchar" MaxLength="50" />
+          <Property Name="Salary" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Experience" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Degree" Type="varchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK__Departmen__Facul__59063A47">
           <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
           <End Role="Department" Type="Self.Department" Multiplicity="*" />
@@ -314,9 +301,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Ошибки, обнаруженные при создании:
-ошибка 6004: Невозможно найти таблицу "Ucheb_pr.dbo.Countries", на которую ссылается связь.
-        <Association Name="FK_Countries_Governance" />-->
         <Association Name="FK_Exam_Student">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
@@ -362,6 +346,17 @@
     [Gymnasts].[School] AS [School], 
     [Gymnasts].[Scores] AS [Scores]
     FROM [dbo].[Gymnasts] AS [Gymnasts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Empols" EntityType="Self.Empols" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Empols].[Employee_ID] AS [Employee_ID], 
+    [Empols].[Last_Name] AS [Last_Name], 
+    [Empols].[Position] AS [Position], 
+    [Empols].[Salary] AS [Salary], 
+    [Empols].[Experience] AS [Experience], 
+    [Empols].[Title] AS [Title], 
+    [Empols].[Degree] AS [Degree]
+    FROM [dbo].[Empols] AS [Empols]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__Departmen__Facul__59063A47" Association="Self.FK__Departmen__Facul__59063A47">
             <End Role="Faculty" EntitySet="Faculty" />
@@ -412,8 +407,7 @@
             <End Role="Exam" EntitySet="Exam" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Ucheb_prModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -796,7 +790,20 @@
             <End Role="Student" EntitySet="Student" />
             <End Role="Exam" EntitySet="Exam" />
           </AssociationSet>
+          <EntitySet Name="Empols" EntityType="Ucheb_prModel.Empols" />
         </EntityContainer>
+        <EntityType Name="Empols">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Experience" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -955,6 +962,19 @@
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="School" ColumnName="School" />
                 <ScalarProperty Name="Scores" ColumnName="Scores" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empols">
+            <EntityTypeMapping TypeName="Ucheb_prModel.Empols">
+              <MappingFragment StoreEntitySet="Empols">
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

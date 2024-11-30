@@ -33,6 +33,7 @@
         <AssociationConnector Association="Ucheb_prModel.FK__Lecturer__Employ__6D0D32F4" ManuallyRouted="false" />
         <AssociationConnector Association="Ucheb_prModel.FK__Student__Number__6FE99F9F" ManuallyRouted="false" />
         <AssociationConnector Association="Ucheb_prModel.FK_Exam_Student" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Empols" Width="1.5" PointX="0.75" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,41 @@
+﻿<Page x:Class="Uch.Pages.EmpPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Uch.Pages"
+      mc:Ignorable="d" Background="white"
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="EmpPage">
+
+    <Grid>
+        <ListView x:Name="ListEmp" Background="#FF4F93B7" Margin="10,175,318,95" Visibility="Visible" BorderBrush="White" Foreground="White">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Employee_ID}" Width="40" Header="Код"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Last_Name}" Width="100" Header="ФИО"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Salary}" Width="90" Header="Зарплата"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Experience}" Width="50" Header="Стаж"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Position}" Width="70" Header="Ранг"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Degree}" Width="70" Header="Степень"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Rectangle HorizontalAlignment="Left" Height="227" Margin="484,178,0,0" VerticalAlignment="Top" Width="283" Stroke="#FF4F93B7" Fill="White" x:Name="Rect" Visibility="Visible"/>
+        <StackPanel HorizontalAlignment="Left" Height="227" Margin="619,178,0,0" VerticalAlignment="Top" Width="148" Background="#FF4F93B7" x:Name="Redakt_Panel" Visibility="Visible" >
+            <TextBox TextWrapping="Wrap" Text="Код" Width="143" Background="White" BorderBrush="#FF4F93B7" x:Name="txt_code" Visibility="Visible" Height="31" />
+            <TextBox TextWrapping="Wrap" Text="Название" Width="143" Background="White" BorderBrush="#FF4F93B7" x:Name="txt_nazvanie" Visibility="Visible" Height="31"/>
+            <TextBox TextWrapping="Wrap" Text="Количество часов" Width="143" Background="White" BorderBrush="#FF4F93B7" x:Name="txt_vol" Visibility="Visible" Height="31"/>
+            <TextBox TextWrapping="Wrap" Text="Отделение" Width="143" Background="White" BorderBrush="#FF4F93B7" x:Name="txt_instr" Visibility="Visible" Height="32"/>
+        </StackPanel>
+        <Button Content="Добавить" Height="34" Margin="504,243,210,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonAdd" Click="Button_Add" />
+        <Button Content="Изменить" Height="34" Margin="504,289,210,0" BorderBrush="#FF4F93B7" VerticalAlignment="Top" x:Name="ButtonEdit" Click="Button_Edit"/>
+        <Button Content="Удалить" Height="34" Margin="504,335,210,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonDelete" Click="Button_Delete"/>
+        <Button Content="✕" Margin="496,190,259,0" VerticalAlignment="Top" Height="32" RenderTransformOrigin="1.58,0.34" x:Name="ButtonClose" Click="Button_Click_Close" FontSize="7"></Button>
+        <TextBlock HorizontalAlignment="Center" Margin="0,12,0,0" TextWrapping="Wrap" Text="Сотрудники" VerticalAlignment="Top" Height="38" Width="128" FontSize="22"/>
+        <TextBlock HorizontalAlignment="Left" Margin="31,144,0,0" TextWrapping="Wrap" Text="Поиск по ФИО: " VerticalAlignment="Top" Height="26" Width="143" FontSize="14"/>
+        <TextBlock x:Name="txt_Nam" HorizontalAlignment="Center" Margin="0,72,0,0" TextWrapping="Wrap" Text="Сотрудник" VerticalAlignment="Top" Height="38" Width="128" FontSize="20"/>
+        <TextBox x:Name="txt_sort" HorizontalAlignment="Left" Height="20" Margin="133,144,0,0" TextWrapping="Wrap" Text="Введите ФИО" VerticalAlignment="Top" Width="113" BorderBrush="#FF4E6CC7"/>
+        <Button  Content="Сброс" HorizontalAlignment="Left" Height="20" Margin="261,144,0,0" VerticalAlignment="Top" Width="76" Click="btnResetFilter_Click"/>
+    </Grid>
+</Page>

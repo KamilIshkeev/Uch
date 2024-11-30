@@ -41,5 +41,6 @@ namespace Uch.Base
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Exam> Exam { get; set; }
         public virtual DbSet<Gymnasts> Gymnasts { get; set; }
+        public virtual DbSet<Empols> Empols { get; set; }
     }
 }
