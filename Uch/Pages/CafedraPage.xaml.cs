@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,37 +14,80 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Uch.Base;
+using System.Data.Entity.Migrations;
+using System.Windows.Forms; // Для BindingSource
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using BindingSource = System.Windows.Forms.BindingSource;
+using ListViewItem = System.Windows.Controls.ListViewItem;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Uch.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для DisciplinePage.xaml
+    /// Логика взаимодействия для CafedraPage.xaml
     /// </summary>
-    public partial class DisciplinePage : Page
+    public partial class CafedraPage : Page
     {
+        private List<Empols> originalList; // Сохраняем оригинальный список
         static MainWindow _mainWindow;
         Employee _employee;
-        public DisciplinePage(MainWindow mainWindow,Employee employee)
+        private BindingSource _bindingSource;
+        public CafedraPage(MainWindow mainWindow)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-            ListDisip.ItemsSource = connect.db.Discipline.ToList();
-            _employee = employee;
-            //var UsE = connect.db.Employee.;
-            //if (UsE.Code == null) { }
-            //else 
-            //{ 
-            //    txt_Nam.Text = UsE.Last_Name;
-            //}
+            _bindingSource = new BindingSource();
 
-            // Assuming Employee is a single record, not a collection
-            txt_Nam.Text = _employee.Last_Name; // Null-conditional operator and null-coalescing operator
+            // Загрузка полного списка сотрудников
+            originalList = connect.db.Empols.ToList();
 
+            // Установка источника данных для ListView
+            ListCafedra.ItemsSource = originalList;
 
-
-
-
+            // Добавление обработчика события изменения текста
+            txt_sort.TextChanged += Txt_sort_TextChanged;
         }
+
+
+
+
+        // Обработчик изменения текста фильтра
+        private void Txt_sort_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ApplyFilter();
+        }
+
+        // Метод для применения фильтрации
+        private void ApplyFilter()
+        {
+            // Получение текста фильтра
+            string filterText = txt_sort.Text.ToLower().Trim();
+
+            if (string.IsNullOrWhiteSpace(filterText))
+            {
+
+                ListCafedra.ItemsSource = originalList;
+            }
+            else
+            {
+                // Фильтрация списка
+                var filteredList = originalList
+                    .Where(emp =>
+                        emp != null &&
+                        !string.IsNullOrEmpty(emp.Last_Name) &&
+                        emp.Last_Name.ToLower().StartsWith(filterText)
+                    )
+                    .OrderBy(emp => emp.Last_Name)
+                    .ToList();
+
+
+                ListCafedra.ItemsSource = filteredList;
+            }
+        }
+
+
+
+
 
 
         private void Button_Click_Close(object sender, RoutedEventArgs e)
@@ -65,7 +108,7 @@ namespace Uch.Pages
                 string nazv = txt_nazvanie.Text;
                 var voll = Convert.ToInt32(txt_vol.Text);
                 string instruct = txt_instr.Text;
-           
+
 
 
                 var Disciplines = new Discipline()
@@ -127,7 +170,7 @@ namespace Uch.Pages
                     Discipline even = (from r in connect.db.Discipline where r.Code == cood select r).SingleOrDefault();
                     connect.db.Discipline.Remove(even);
                     connect.db.SaveChanges();
-                    ListDisip.ItemsSource = connect.db.Discipline.ToList();
+                    ListCafedra.ItemsSource = connect.db.Discipline.ToList();
                     MessageBox.Show("Информация о дисциплине удалена");
                 }
                 else
@@ -143,7 +186,22 @@ namespace Uch.Pages
 
 
 
-         
+
+        // Обработчик сброса фильтра
+        private void btnResetFilter_Click(object sender, RoutedEventArgs e)
+        {
+            // Очистка текстового поля
+            txt_sort.Clear();
+
+            // Восстановление полного списка
+            _bindingSource.DataSource = new BindingList<Empols>(originalList);
+        }
+
+
+
+
+
+
 
 
     }

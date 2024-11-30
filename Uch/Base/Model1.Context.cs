@@ -38,9 +38,11 @@ namespace Uch.Base
         public virtual DbSet<Specialization> Specialization { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Students> Students { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Exam> Exam { get; set; }
         public virtual DbSet<Gymnasts> Gymnasts { get; set; }
         public virtual DbSet<Empols> Empols { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Cafedra> Cafedra { get; set; }
+        public virtual DbSet<Discip> Discip { get; set; }
     }
 }

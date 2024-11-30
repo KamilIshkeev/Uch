@@ -41,12 +41,13 @@ namespace Uch.Pages
         {
             int login_user = 0;
 
-            if ( txtLogin.Text != "Введите логин" || txtLogin.Text != null ) 
+            if ( txtLogin.Text != "Введите логин" && txtLogin.Text != null && txtLogin.Text != "" && txtLogin.Text != " ") 
             {
                 MessageBox.Show("Хм я что-то забыл а да Поздравляю вы проши игру!");
                 login_user = Convert.ToInt32(txtLogin.Text);
-                id = login_user; 
+                id = login_user;
                 
+
             }
             else 
             {
@@ -68,9 +69,12 @@ namespace Uch.Pages
                         if (user != null)
                         {
                             
-                            _mainWindow.MainFrame.NavigationService.Navigate(new MenuWPage(_mainWindow));
+                            _mainWindow.MainFrame.NavigationService.Navigate(new MenuWPage(_mainWindow, user));
                             connect.db.Employee.FirstOrDefault(u => login_user==  u.Employee_ID);
-                        }
+                        newEmployee = user;
+                        connect.db.SaveChanges();
+
+                    }
                         else
                         {
                             MessageBox.Show("Ошибка: Пользователь не найден в таблице User.");
