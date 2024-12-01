@@ -10,5 +10,6 @@
         <Frame x:Name="MainFrame"/>
         <Button x:Name="btnQr" Content="QrCode" HorizontalAlignment="Left" Height="26" Margin="691,40,0,0" VerticalAlignment="Top" Width="55" Background="#E5632ACC" Foreground="White" Click="Button_Click"/>
         <Image x:Name="imageQr" Margin="648,90,53,295" Visibility="Hidden" />
+        <Button x:Name="tx_menu" Content="Меню" HorizontalAlignment="Left" Margin="41,45,0,0" VerticalAlignment="Top" Height="29" Width="72" Click="Button_Click_1" Visibility="Hidden"/>
     </Grid>
 </Window>

@@ -28,62 +28,27 @@ namespace Uch.Pages
     /// </summary>
     public partial class CafedraPage : Page
     {
-        private List<Empols> originalList; // Сохраняем оригинальный список
+        private List<Cafedra> originalList; // Сохраняем оригинальный список
         static MainWindow _mainWindow;
         Employee _employee;
         private BindingSource _bindingSource;
-        public CafedraPage(MainWindow mainWindow)
+        Department _department;
+        
+        public CafedraPage(MainWindow mainWindow, Employee employee)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
             _bindingSource = new BindingSource();
-
+            
             // Загрузка полного списка сотрудников
-            originalList = connect.db.Empols.ToList();
+            originalList = connect.db.Cafedra.ToList();
 
             // Установка источника данных для ListView
             ListCafedra.ItemsSource = originalList;
 
-            // Добавление обработчика события изменения текста
-            txt_sort.TextChanged += Txt_sort_TextChanged;
+            txt_Nam.Text = employee.Last_Name;
         }
-
-
-
-
-        // Обработчик изменения текста фильтра
-        private void Txt_sort_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ApplyFilter();
-        }
-
-        // Метод для применения фильтрации
-        private void ApplyFilter()
-        {
-            // Получение текста фильтра
-            string filterText = txt_sort.Text.ToLower().Trim();
-
-            if (string.IsNullOrWhiteSpace(filterText))
-            {
-
-                ListCafedra.ItemsSource = originalList;
-            }
-            else
-            {
-                // Фильтрация списка
-                var filteredList = originalList
-                    .Where(emp =>
-                        emp != null &&
-                        !string.IsNullOrEmpty(emp.Last_Name) &&
-                        emp.Last_Name.ToLower().StartsWith(filterText)
-                    )
-                    .OrderBy(emp => emp.Last_Name)
-                    .ToList();
-
-
-                ListCafedra.ItemsSource = filteredList;
-            }
-        }
+       
 
 
 
@@ -108,21 +73,25 @@ namespace Uch.Pages
                 string nazv = txt_nazvanie.Text;
                 var voll = Convert.ToInt32(txt_vol.Text);
                 string instruct = txt_instr.Text;
-
-
+                var truc  = connect.db.Department.FirstOrDefault(id => id.Name == instruct);
+            var struc = (truc as Department); 
+            string inst = struc.Code;
+                //if (struc.Name != instruct) { inst = struc.Code; }
 
                 var Disciplines = new Discipline()
                 {
                     Code = Codes,
                     Name = nazv,
                     Volume = voll,
-                    Instructor = instruct
+                    Instructor = inst
 
                 };
 
                 connect.db.Discipline.Add(Disciplines);
                 connect.db.SaveChanges();
-                MessageBox.Show("Дисциплина была успешно добавлена");
+                MessageBox.Show("Строка была успешно добавлена");
+                ListCafedra.ItemsSource = connect.db.Discipline.ToList();
+                ListCafedra.ItemsSource = connect.db.Cafedra.ToList();
                 return;
             }
             catch (Exception ex)
@@ -138,20 +107,25 @@ namespace Uch.Pages
                 string nazv = txt_nazvanie.Text;
                 var voll = Convert.ToInt32(txt_vol.Text);
                 string instruct = txt_instr.Text;
-
-
+                var truc = connect.db.Department.FirstOrDefault(id => id.Name == instruct);
+                var struc = (truc as Department);
+                string inst = struc.Code;
+                //if (struc.Name != instruct) { inst = struc.Code; }
 
                 var Disciplines = new Discipline()
                 {
                     Code = Codes,
                     Name = nazv,
                     Volume = voll,
-                    Instructor = instruct
+                    Instructor = inst
+
                 };
 
                 connect.db.Discipline.AddOrUpdate(Disciplines);
                 connect.db.SaveChanges();
-                MessageBox.Show("Дисциплина была успешно отредактированна");
+                MessageBox.Show("Строка была успешно добавлена");
+                ListCafedra.ItemsSource = connect.db.Discipline.ToList();
+                ListCafedra.ItemsSource = connect.db.Cafedra.ToList();
                 return;
             }
             catch (Exception ex)
@@ -171,7 +145,9 @@ namespace Uch.Pages
                     connect.db.Discipline.Remove(even);
                     connect.db.SaveChanges();
                     ListCafedra.ItemsSource = connect.db.Discipline.ToList();
-                    MessageBox.Show("Информация о дисциплине удалена");
+                    ListCafedra.ItemsSource = connect.db.Cafedra.ToList();
+                    MessageBox.Show("Информация о строке удалена");
+
                 }
                 else
                 {
@@ -186,16 +162,6 @@ namespace Uch.Pages
 
 
 
-
-        // Обработчик сброса фильтра
-        private void btnResetFilter_Click(object sender, RoutedEventArgs e)
-        {
-            // Очистка текстового поля
-            txt_sort.Clear();
-
-            // Восстановление полного списка
-            _bindingSource.DataSource = new BindingList<Empols>(originalList);
-        }
 
 
 

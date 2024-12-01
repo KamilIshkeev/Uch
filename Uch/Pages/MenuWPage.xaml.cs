@@ -23,6 +23,7 @@ namespace Uch.Pages
     {
         static MainWindow _mainWindow;
         Employee _employee;
+        Department _department;
         
         public MenuWPage(MainWindow mainWindow, Employee employee)
         {
@@ -30,6 +31,7 @@ namespace Uch.Pages
             InitializeComponent();
             _employee = employee;
             txt_Nam.Text = employee.Last_Name;
+            _mainWindow.BtnMenu();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -39,17 +41,17 @@ namespace Uch.Pages
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            _mainWindow.MainFrame.NavigationService.Navigate(new EmpPage(_mainWindow));
+            _mainWindow.MainFrame.NavigationService.Navigate(new EmpPage(_mainWindow, _employee));
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            _mainWindow.MainFrame.NavigationService.Navigate(new FacultyPage(_mainWindow));
+            _mainWindow.MainFrame.NavigationService.Navigate(new FacultyPage(_mainWindow, _employee));
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            _mainWindow.MainFrame.NavigationService.Navigate(new CafedraPage(_mainWindow));
+            _mainWindow.MainFrame.NavigationService.Navigate(new CafedraPage(_mainWindow, _employee));
         }
     }
 }

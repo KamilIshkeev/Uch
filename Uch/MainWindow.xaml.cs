@@ -1,6 +1,7 @@
 ﻿using QRCoder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Uch.Base;
 using Uch.Pages;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -26,13 +28,25 @@ namespace Uch
     /// </summary>
     public partial class MainWindow : Window
     {
+      
+        MainWindow _mainWindow;
+        internal async void BtnMenu() 
+        { 
+            
+            tx_menu.Visibility = Visibility.Visible; 
+        }
+        
         public MainWindow()
         {
             InitializeComponent();
             //WindowState = WindowState.;
             WindowStyle = WindowStyle.None;
             MainFrame.NavigationService.Navigate(new RegPage(this));
+          
+            
         }
+
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -68,5 +82,33 @@ namespace Uch
                 imageQr.Visibility = Visibility.Hidden; 
             }
         }
+
+
+       
+
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.Content is MenuWPage)
+            {
+                Debug.WriteLine("Already on MenuWPage, navigation skipped");
+                return;
+            }
+
+            // Проверяем возможность перехода назад
+            if (MainFrame.NavigationService.CanGoBack)
+            {
+                MainFrame.NavigationService.GoBack();
+                Debug.WriteLine("Navigated back successfully");
+            }
+            else
+            {
+                Debug.WriteLine("Cannot navigate back");
+            }
+
+
+        }
+
+       
     }
 }

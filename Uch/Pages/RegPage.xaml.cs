@@ -22,6 +22,7 @@ namespace Uch.Pages
     /// </summary>
     public partial class RegPage : Page
     {
+        public bool AllowGoBack { get; set; } = false; // Default to false
         static MainWindow _mainWindow;
         Employee newEmployee;
         int id;

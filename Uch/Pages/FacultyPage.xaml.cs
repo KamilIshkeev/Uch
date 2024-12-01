@@ -33,17 +33,20 @@ namespace Uch.Pages
         static MainWindow _mainWindow;
         Employee _employee;
         private BindingSource _bindingSource;
-        public FacultyPage(MainWindow mainWindow)
+        Faculty _faculty;
+
+        public FacultyPage(MainWindow mainWindow, Employee employee)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
             _bindingSource = new BindingSource();
-
+            _employee = employee;
             // Загрузка полного списка сотрудников
             originalList = connect.db.Discip.ToList();
 
             // Установка источника данных для ListView
             ListFaculty.ItemsSource = originalList;
+            txt_Nam.Text = employee.Last_Name;
 
             // Добавление обработчика события изменения текста
             txt_sort.TextChanged += Txt_sort_TextChanged;
@@ -142,29 +145,35 @@ namespace Uch.Pages
             ButtonEdit.Visibility = Visibility.Hidden;
         }
 
+
+        //public void ReturnTo() { ListFaculty.ItemsSource = connect.db.Discip.ToList(); }
+
         private void Button_Add(object sender, RoutedEventArgs e)
         {
             try
             {
-                var Codes = Convert.ToInt32(txt_code.Text);
-                string nazv = txt_nazvanie.Text;
-                var voll = Convert.ToInt32(txt_vol.Text);
-                string instruct = txt_instr.Text;
+               
+                var Codes = txt_code.Text;
+                string cafe = txt_nazvanie.Text;
+                string facul = txt_vol.Text;
+                var truc = connect.db.Faculty.FirstOrDefault(id => id.Name == facul);
+                var struc = (truc as Faculty);
+                string fc = struc.Abbreviation;
 
-
-
-                var Disciplines = new Discipline()
+                var Departments = new Department()
                 {
                     Code = Codes,
-                    Name = nazv,
-                    Volume = voll,
-                    Instructor = instruct
+                    Name = cafe,
+                    Faculty = fc,
 
                 };
 
-                connect.db.Discipline.Add(Disciplines);
+                connect.db.Department.Add(Departments);
                 connect.db.SaveChanges();
-                MessageBox.Show("Дисциплина была успешно добавлена");
+                
+                MessageBox.Show("Строка была успешно отредактированна");
+                ListFaculty.ItemsSource = connect.db.Department.ToList();
+                ListFaculty.ItemsSource = connect.db.Discip.ToList();
                 return;
             }
             catch (Exception ex)
@@ -176,24 +185,26 @@ namespace Uch.Pages
         {
             try
             {
-                var Codes = Convert.ToInt32(txt_code.Text);
-                string nazv = txt_nazvanie.Text;
-                var voll = Convert.ToInt32(txt_vol.Text);
-                string instruct = txt_instr.Text;
+                var Codes = txt_code.Text;
+                string cafe = txt_nazvanie.Text;
+                string facul = txt_vol.Text;
+                var truc = connect.db.Faculty.FirstOrDefault(id => id.Name == facul);
+                var struc = (truc as Faculty);
+                string fc = struc.Abbreviation;
 
-
-
-                var Disciplines = new Discipline()
+                var Departments = new Department()
                 {
                     Code = Codes,
-                    Name = nazv,
-                    Volume = voll,
-                    Instructor = instruct
+                    Name = cafe,
+                    Faculty = fc,
+
                 };
 
-                connect.db.Discipline.AddOrUpdate(Disciplines);
+                connect.db.Department.AddOrUpdate(Departments);
                 connect.db.SaveChanges();
-                MessageBox.Show("Дисциплина была успешно отредактированна");
+                MessageBox.Show("Строка была успешно отредактированна");
+                ListFaculty.ItemsSource = connect.db.Department.ToList();
+                ListFaculty.ItemsSource = connect.db.Discip.ToList();
                 return;
             }
             catch (Exception ex)
@@ -206,18 +217,19 @@ namespace Uch.Pages
         {
             try
             {
-                var cood = Convert.ToInt32(txt_code.Text);
+                var cood = txt_code.Text;
                 if (cood != null)
                 {
-                    Discipline even = (from r in connect.db.Discipline where r.Code == cood select r).SingleOrDefault();
-                    connect.db.Discipline.Remove(even);
+                    Department even = (from r in connect.db.Department where r.Code == cood select r).SingleOrDefault();
+                    connect.db.Department.Remove(even);
                     connect.db.SaveChanges();
-                    ListFaculty.ItemsSource = connect.db.Discipline.ToList();
-                    MessageBox.Show("Информация о дисциплине удалена");
+                    ListFaculty.ItemsSource = connect.db.Department.ToList();
+                    ListFaculty.ItemsSource = connect.db.Discip.ToList();
+                    MessageBox.Show("Информация о строке удалена");
                 }
                 else
                 {
-                    MessageBox.Show("Для удаления впишите ID Дисциплины");
+                    MessageBox.Show("Для удаления впишите Code");
                 }
             }
             catch (Exception ex)

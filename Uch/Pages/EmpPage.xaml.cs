@@ -41,7 +41,7 @@ namespace Uch.Pages
         private BindingSource _bindingSource;
         //private ObservableCollection<string> employeeNames;
 
-        public EmpPage(MainWindow mainWindow)
+        public EmpPage(MainWindow mainWindow, Employee employee)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
@@ -52,6 +52,7 @@ namespace Uch.Pages
 
             // Установка источника данных для ListView
             ListEmp.ItemsSource = originalList;
+            txt_Nam.Text = employee.Last_Name;
 
             // Добавление обработчика события изменения текста
             txt_sort.TextChanged += Txt_sort_TextChanged;
