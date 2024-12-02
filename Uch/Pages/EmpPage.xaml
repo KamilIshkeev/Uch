@@ -36,7 +36,6 @@
         <Button Content="Добавить" Height="34" Margin="524,242,190,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonAdd" Click="Button_Add" />
         <Button Content="Изменить" Height="34" Margin="524,288,190,0" BorderBrush="#FF4F93B7" VerticalAlignment="Top" x:Name="ButtonEdit" Click="Button_Edit"/>
         <Button Content="Удалить" Height="34" Margin="524,334,190,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonDelete" Click="Button_Delete"/>
-        <Button Content="✕" Margin="516,189,239,0" VerticalAlignment="Top" Height="32" RenderTransformOrigin="1.58,0.34" x:Name="ButtonClose" Click="Button_Click_Close" FontSize="7"></Button>
         <TextBlock HorizontalAlignment="Center" Margin="0,12,0,0" TextWrapping="Wrap" Text="Сотрудники" VerticalAlignment="Top" Height="38" Width="128" FontSize="22"/>
         <TextBlock HorizontalAlignment="Left" Margin="31,144,0,0" TextWrapping="Wrap" Text="Поиск по ФИО: " VerticalAlignment="Top" Height="26" Width="143" FontSize="14"/>
         <TextBlock x:Name="txt_Nam" HorizontalAlignment="Center" Margin="0,72,0,0" TextWrapping="Wrap" Text="Сотрудник" VerticalAlignment="Top" Height="38" Width="128" FontSize="20"/>

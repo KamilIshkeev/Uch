@@ -92,16 +92,7 @@ namespace Uch.Pages
 
 
 
-        private void Button_Click_Close(object sender, RoutedEventArgs e)
-        {
-            Redakt_Panel.Visibility = Visibility.Hidden;
-            Rect.Visibility = Visibility.Hidden;
-            ButtonAdd.Visibility = Visibility.Hidden;
-            ButtonClose.Visibility = Visibility.Hidden;
-            ButtonDelete.Visibility = Visibility.Hidden;
-            ButtonEdit.Visibility = Visibility.Hidden;
-        }
-
+     
 
         private void Txt_up_TextChanged(object sender, TextChangedEventArgs e)
         {

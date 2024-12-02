@@ -36,6 +36,7 @@ namespace Uch.Pages
                 btn_emp.Visibility = Visibility.Hidden;
                 btn_cafed.Visibility = Visibility.Visible;
                 btn_fuclt.Visibility = Visibility.Visible;
+                btn_exam.Visibility = Visibility.Visible;
             }
             else if (employee.Position == "инженер")
             {
@@ -43,6 +44,7 @@ namespace Uch.Pages
                 btn_emp.Visibility = Visibility.Visible;
                 btn_cafed.Visibility = Visibility.Visible;
                 btn_fuclt.Visibility = Visibility.Visible;
+                btn_exam.Visibility = Visibility.Visible;
             }
             else if (employee.Position == "преподаватель") 
             {
@@ -50,6 +52,7 @@ namespace Uch.Pages
                 btn_emp.Visibility = Visibility.Hidden;
                 btn_cafed.Visibility = Visibility.Hidden;
                 btn_fuclt.Visibility = Visibility.Hidden;
+                btn_exam.Visibility = Visibility.Visible;
             }
         }
 
@@ -71,6 +74,11 @@ namespace Uch.Pages
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             _mainWindow.MainFrame.NavigationService.Navigate(new CafedraPage(_mainWindow, _employee));
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.MainFrame.NavigationService.Navigate(new ExamPage(_mainWindow, _employee));
         }
     }
 }

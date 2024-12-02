@@ -4,38 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="30a90247b39543bf9020823fcff91802" Name="Diagram1" ZoomLevel="72">
-        <EntityTypeShape EntityType="Ucheb_prModel.Application" Width="1.5" PointX="7.5" PointY="9.125" />
+      <Diagram DiagramId="30a90247b39543bf9020823fcff91802" Name="Diagram1" ZoomLevel="46">
+        <EntityTypeShape EntityType="Ucheb_prModel.Application" Width="1.5" PointX="7.5" PointY="1.875" />
         <EntityTypeShape EntityType="Ucheb_prModel.Countries_Ishkeev" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="Ucheb_prModel.Department" Width="1.5" PointX="3" PointY="7.875" />
         <EntityTypeShape EntityType="Ucheb_prModel.Discipline" Width="1.5" PointX="5.25" PointY="14.125" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Employee" Width="1.5" PointX="5.25" PointY="3.5" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Engineer" Width="1.5" PointX="7.5" PointY="1.875" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Employee" Width="1.5" PointX="5.25" PointY="8.625" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Engineer" Width="1.5" PointX="7.5" PointY="7" />
         <EntityTypeShape EntityType="Ucheb_prModel.Faculty" Width="1.5" PointX="0.75" PointY="8.25" />
         <EntityTypeShape EntityType="Ucheb_prModel.Governance" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Head_of_Department" Width="1.5" PointX="7.5" PointY="4.25" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Lecturer" Width="1.5" PointX="7.5" PointY="6.5" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Specialization" Width="1.5" PointX="5.25" PointY="10.125" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Student" Width="1.5" PointX="7.5" PointY="11.5" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Head_of_Department" Width="1.5" PointX="7.5" PointY="11.875" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Lecturer" Width="1.5" PointX="7.5" PointY="9.25" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Specialization" Width="1.5" PointX="5.25" PointY="3" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Student" Width="1.5" PointX="7.5" PointY="4.25" />
         <EntityTypeShape EntityType="Ucheb_prModel.Students" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Exam" Width="1.5" PointX="9.75" PointY="8.625" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Gymnasts" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Empols" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Exam" Width="1.5" PointX="9.75" PointY="8.875" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Gymnasts" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Cafedra" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Discip" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Ucheb_prModel.Empols" Width="1.5" PointX="0.75" PointY="11.75" />
         <AssociationConnector Association="Ucheb_prModel.FK_Application_Specialization" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Departmen__Facul__619B8048" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Disciplin__Instr__628FA481" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Employee__Code__6383C8BA" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Specializa__Code__6A30C649" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Exam__Code__656C112C" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Engineer__Employ__6477ECF3" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Exam__Employee_I__66603565" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Head_of_D__Emplo__68487DD7" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Lecturer__Employ__693CA210" />
-        <AssociationConnector Association="Ucheb_prModel.FK__Student__Number__6B24EA82" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Departmen__Facul__5070F446" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Disciplin__Instr__5165187F" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Employee__Code__52593CB8" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Specializa__Code__59063A47" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Exam__Code__5441852A" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Engineer__Employ__534D60F1" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Exam__Employee_I__5535A963" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Head_of_D__Emplo__571DF1D5" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Lecturer__Employ__5812160E" />
+        <AssociationConnector Association="Ucheb_prModel.FK__Student__Number__59FA5E80" />
         <AssociationConnector Association="Ucheb_prModel.FK_Exam_Student" />
-        <EntityTypeShape EntityType="Ucheb_prModel.sysdiagrams" Width="1.5" PointX="10.75" PointY="4.75" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Cafedra" Width="1.5" PointX="0.75" PointY="11.75" />
-        <EntityTypeShape EntityType="Ucheb_prModel.Discip" Width="1.5" PointX="2.75" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
