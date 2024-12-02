@@ -22,7 +22,7 @@ namespace Uch.Pages
     /// </summary>
     public partial class RegPage : Page
     {
-        public bool AllowGoBack { get; set; } = false; // Default to false
+        public bool AllowGoBack { get; set; } = false; 
         static MainWindow _mainWindow;
         Employee newEmployee;
         int id;
@@ -65,7 +65,7 @@ namespace Uch.Pages
                
                     if (login_sql.Employee_ID == login_user)
                     {
-                        // Пользователь существует, переходим на страницу профиля
+                        
                         var user = connect.db.Employee.FirstOrDefault(u => u.Employee_ID == login_user);
                         if (user != null)
                         {

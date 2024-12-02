@@ -23,9 +23,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Uch
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
       
@@ -39,7 +37,7 @@ namespace Uch
         public MainWindow()
         {
             InitializeComponent();
-            //WindowState = WindowState.;
+            
             WindowStyle = WindowStyle.None;
             MainFrame.NavigationService.Navigate(new RegPage(this));
           
@@ -95,7 +93,7 @@ namespace Uch
                 return;
             }
 
-            // Проверяем возможность перехода назад
+            
             if (MainFrame.NavigationService.CanGoBack)
             {
                 MainFrame.NavigationService.GoBack();

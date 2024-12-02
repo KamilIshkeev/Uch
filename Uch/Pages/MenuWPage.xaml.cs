@@ -16,9 +16,7 @@ using Uch.Base;
 
 namespace Uch.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для MenuWPage.xaml
-    /// </summary>
+    
     public partial class MenuWPage : Page
     {
         static MainWindow _mainWindow;
@@ -32,6 +30,27 @@ namespace Uch.Pages
             _employee = employee;
             txt_Nam.Text = employee.Last_Name;
             _mainWindow.BtnMenu();
+            if (employee.Position == "зав. кафедрой")
+            {
+                btn_disp.Visibility = Visibility.Hidden;
+                btn_emp.Visibility = Visibility.Hidden;
+                btn_cafed.Visibility = Visibility.Visible;
+                btn_fuclt.Visibility = Visibility.Visible;
+            }
+            else if (employee.Position == "инженер")
+            {
+                btn_disp.Visibility = Visibility.Visible;
+                btn_emp.Visibility = Visibility.Visible;
+                btn_cafed.Visibility = Visibility.Visible;
+                btn_fuclt.Visibility = Visibility.Visible;
+            }
+            else if (employee.Position == "преподаватель") 
+            {
+                btn_disp.Visibility = Visibility.Visible;
+                btn_emp.Visibility = Visibility.Hidden;
+                btn_cafed.Visibility = Visibility.Hidden;
+                btn_fuclt.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

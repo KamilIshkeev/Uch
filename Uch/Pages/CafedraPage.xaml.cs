@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Uch.Base;
 using System.Data.Entity.Migrations;
-using System.Windows.Forms; // Для BindingSource
+using System.Windows.Forms; 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using BindingSource = System.Windows.Forms.BindingSource;
 using ListViewItem = System.Windows.Controls.ListViewItem;
@@ -23,12 +23,10 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace Uch.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для CafedraPage.xaml
-    /// </summary>
+    
     public partial class CafedraPage : Page
     {
-        private List<Cafedra> originalList; // Сохраняем оригинальный список
+        private List<Cafedra> originalList; 
         static MainWindow _mainWindow;
         Employee _employee;
         private BindingSource _bindingSource;
@@ -40,10 +38,10 @@ namespace Uch.Pages
             _mainWindow = mainWindow;
             _bindingSource = new BindingSource();
             
-            // Загрузка полного списка сотрудников
+            
             originalList = connect.db.Cafedra.ToList();
 
-            // Установка источника данных для ListView
+            
             ListCafedra.ItemsSource = originalList;
 
             txt_Nam.Text = employee.Last_Name;
@@ -76,7 +74,7 @@ namespace Uch.Pages
                 var truc  = connect.db.Department.FirstOrDefault(id => id.Name == instruct);
             var struc = (truc as Department); 
             string inst = struc.Code;
-                //if (struc.Name != instruct) { inst = struc.Code; }
+               
 
                 var Disciplines = new Discipline()
                 {
@@ -110,7 +108,7 @@ namespace Uch.Pages
                 var truc = connect.db.Department.FirstOrDefault(id => id.Name == instruct);
                 var struc = (truc as Department);
                 string inst = struc.Code;
-                //if (struc.Name != instruct) { inst = struc.Code; }
+               
 
                 var Disciplines = new Discipline()
                 {

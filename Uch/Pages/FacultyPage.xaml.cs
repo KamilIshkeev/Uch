@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Uch.Base;
 using System.Data.Entity.Migrations;
-using System.Windows.Forms; // Для BindingSource
+using System.Windows.Forms; 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using BindingSource = System.Windows.Forms.BindingSource;
 using ListViewItem = System.Windows.Controls.ListViewItem;
@@ -24,12 +24,10 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace Uch.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для FacultyPage.xaml
-    /// </summary>
+    
     public partial class FacultyPage : Page
     {  
-        private List<Discip> originalList; // Сохраняем оригинальный список
+        private List<Discip> originalList; 
         static MainWindow _mainWindow;
         Employee _employee;
         private BindingSource _bindingSource;
@@ -41,14 +39,14 @@ namespace Uch.Pages
             _mainWindow = mainWindow;
             _bindingSource = new BindingSource();
             _employee = employee;
-            // Загрузка полного списка сотрудников
+           
             originalList = connect.db.Discip.ToList();
 
-            // Установка источника данных для ListView
+            
             ListFaculty.ItemsSource = originalList;
             txt_Nam.Text = employee.Last_Name;
 
-            // Добавление обработчика события изменения текста
+            
             txt_sort.TextChanged += Txt_sort_TextChanged;
         }
 
@@ -59,7 +57,7 @@ namespace Uch.Pages
 
       
 
-        // Обработчик изменения текста фильтра
+        
         private void Txt_sort_TextChanged(object sender, TextChangedEventArgs e)
         {
             ApplyFilter();
@@ -72,11 +70,11 @@ namespace Uch.Pages
 
 
 
-        // Метод для применения фильтрации
+        
         private void ApplyFilter()
         {
             
-            // Получение текста фильтра
+         
             string filterText = txt_sort.Text.ToLower().Trim();
 
             if (string.IsNullOrWhiteSpace(filterText))
@@ -88,7 +86,7 @@ namespace Uch.Pages
             {
                 if (fil == 1)
                 {
-                    // Фильтрация списка
+                    
                     var filteredList = originalList
                      .Where(emp =>
                          emp != null &&
@@ -101,7 +99,7 @@ namespace Uch.Pages
                 }
                 else if (fil == 2)
                 {
-                    // Фильтрация списка
+                    
                     var filteredList = originalList
                      .Where(emp =>
                          emp != null &&
@@ -114,7 +112,7 @@ namespace Uch.Pages
                 }
                 else if(fil == 0 )
                 {
-                    // Фильтрация списка
+                    
                     var filteredList = originalList
                      .Where(emp =>
                          emp != null &&
@@ -146,8 +144,7 @@ namespace Uch.Pages
         }
 
 
-        //public void ReturnTo() { ListFaculty.ItemsSource = connect.db.Discip.ToList(); }
-
+        
         private void Button_Add(object sender, RoutedEventArgs e)
         {
             try
@@ -241,14 +238,14 @@ namespace Uch.Pages
 
 
 
-        // Обработчик сброса фильтра
+     
         private void btnResetFilter_Click(object sender, RoutedEventArgs e)
         {
             fil =0;
-            // Очистка текстового поля
+          
             txt_sort.Clear();
 
-            // Восстановление полного списка
+           
             _bindingSource.DataSource = new BindingList<Discip>(originalList);
         }
 

@@ -17,9 +17,7 @@ using Uch.Base;
 
 namespace Uch.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для DisciplinePage.xaml
-    /// </summary>
+    
     public partial class DisciplinePage : Page
     {
         static MainWindow _mainWindow;
@@ -30,20 +28,8 @@ namespace Uch.Pages
             _mainWindow = mainWindow;
             ListDisip.ItemsSource = connect.db.Discipline.ToList();
             _employee = employee;
-            //var UsE = connect.db.Employee.;
-            //if (UsE.Code == null) { }
-            //else 
-            //{ 
-            //    txt_Nam.Text = UsE.Last_Name;
-            //}
-
-            // Assuming Employee is a single record, not a collection
-            txt_Nam.Text = _employee.Last_Name; // Null-conditional operator and null-coalescing operator
-
-
-
-
-
+            
+            txt_Nam.Text = _employee.Last_Name; 
         }
 
 
