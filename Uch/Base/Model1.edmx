@@ -86,21 +86,17 @@
           <Property Name="Employee_ID" Type="int" Nullable="false" />
           <Property Name="Specialization" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "Ucheb_pr.dbo.Exam" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Exam">
           <Key>
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Registration_Number" />
-            <PropertyRef Name="Employee_ID" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="Code" Type="int" Nullable="false" />
-          <Property Name="Registration_Number" Type="int" Nullable="false" />
-          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="int" />
+          <Property Name="Registration_Number" Type="int" />
+          <Property Name="Employee_ID" Type="int" />
           <Property Name="Auditorium" Type="varchar" MaxLength="50" />
           <Property Name="Grade" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Faculty">
           <Key>
@@ -171,6 +167,16 @@
           <Property Name="Subject" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="School" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="Scores" Type="float" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Ucheb_pr.dbo.Cafedra" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -255,32 +261,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Exam__Code__5441852A">
-          <End Role="Discipline" Type="Self.Discipline" Multiplicity="1" />
-          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Discipline">
-              <PropertyRef Name="Code" />
-            </Principal>
-            <Dependent Role="Exam">
-              <PropertyRef Name="Code" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Exam__Employee_I__5535A963">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="Employee_ID" />
-            </Principal>
-            <Dependent Role="Exam">
-              <PropertyRef Name="Employee_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Head_of_D__Emplo__571DF1D5">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Head_of_Department" Type="Self.Head_of_Department" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -292,7 +276,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Lecturer__Employ__5812160E">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Lecturer" Type="Self.Lecturer" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -342,8 +328,32 @@
         <!--Ошибки, обнаруженные при создании:
 ошибка 6004: Невозможно найти таблицу "Ucheb_pr.dbo.Countries", на которую ссылается связь.
         <Association Name="FK_Countries_Governance" />-->
+        <Association Name="FK_Exam_Discipline">
+          <End Role="Discipline" Type="Self.Discipline" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discipline">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Exam_Student">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
           <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Student">
@@ -361,6 +371,7 @@
           <EntitySet Name="Discipline" EntityType="Self.Discipline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Engineer" EntityType="Self.Engineer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Governance" EntityType="Self.Governance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Head_of_Department" EntityType="Self.Head_of_Department" Schema="dbo" store:Type="Tables" />
@@ -368,16 +379,7 @@
           <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Exam" EntityType="Self.Exam" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Exam].[Date] AS [Date], 
-    [Exam].[Code] AS [Code], 
-    [Exam].[Registration_Number] AS [Registration_Number], 
-    [Exam].[Employee_ID] AS [Employee_ID], 
-    [Exam].[Auditorium] AS [Auditorium], 
-    [Exam].[Grade] AS [Grade]
-    FROM [dbo].[Exam] AS [Exam]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gymnasts" EntityType="Self.Gymnasts" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Gymnasts].[ID] AS [ID], 
@@ -429,14 +431,6 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Engineer" EntitySet="Engineer" />
           </AssociationSet>
-          <AssociationSet Name="FK__Exam__Code__5441852A" Association="Self.FK__Exam__Code__5441852A">
-            <End Role="Discipline" EntitySet="Discipline" />
-            <End Role="Exam" EntitySet="Exam" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Exam__Employee_I__5535A963" Association="Self.FK__Exam__Employee_I__5535A963">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Exam" EntitySet="Exam" />
-          </AssociationSet>
           <AssociationSet Name="FK__Head_of_D__Emplo__571DF1D5" Association="Self.FK__Head_of_D__Emplo__571DF1D5">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Head_of_Department" EntitySet="Head_of_Department" />
@@ -457,6 +451,14 @@
             <End Role="Specialization" EntitySet="Specialization" />
             <End Role="Application" EntitySet="Application" />
           </AssociationSet>
+          <AssociationSet Name="FK_Exam_Discipline" Association="Self.FK_Exam_Discipline">
+            <End Role="Discipline" EntitySet="Discipline" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Employee" Association="Self.FK_Exam_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
           <AssociationSet Name="FK_Exam_Student" Association="Self.FK_Exam_Student">
             <End Role="Student" EntitySet="Student" />
             <End Role="Exam" EntitySet="Exam" />
@@ -473,6 +475,7 @@
           <EntitySet Name="Discipline" EntityType="Ucheb_prModel.Discipline" />
           <EntitySet Name="Employee" EntityType="Ucheb_prModel.Employee" />
           <EntitySet Name="Engineer" EntityType="Ucheb_prModel.Engineer" />
+          <EntitySet Name="Exam" EntityType="Ucheb_prModel.Exam" />
           <EntitySet Name="Faculty" EntityType="Ucheb_prModel.Faculty" />
           <EntitySet Name="Governance" EntityType="Ucheb_prModel.Governance" />
           <EntitySet Name="Head_of_Department" EntityType="Ucheb_prModel.Head_of_Department" />
@@ -480,7 +483,7 @@
           <EntitySet Name="Specialization" EntityType="Ucheb_prModel.Specialization" />
           <EntitySet Name="Student" EntityType="Ucheb_prModel.Student" />
           <EntitySet Name="Students" EntityType="Ucheb_prModel.Students" />
-          <EntitySet Name="Exam" EntityType="Ucheb_prModel.Exam" />
+          <EntitySet Name="sysdiagrams" EntityType="Ucheb_prModel.sysdiagrams" />
           <EntitySet Name="Gymnasts" EntityType="Ucheb_prModel.Gymnasts" />
           <EntitySet Name="Cafedra" EntityType="Ucheb_prModel.Cafedra" />
           <EntitySet Name="Discip" EntityType="Ucheb_prModel.Discip" />
@@ -505,17 +508,13 @@
             <End Role="Department" EntitySet="Department" />
             <End Role="Specialization" EntitySet="Specialization" />
           </AssociationSet>
-          <AssociationSet Name="FK__Exam__Code__5441852A" Association="Ucheb_prModel.FK__Exam__Code__5441852A">
+          <AssociationSet Name="FK_Exam_Discipline" Association="Ucheb_prModel.FK_Exam_Discipline">
             <End Role="Discipline" EntitySet="Discipline" />
             <End Role="Exam" EntitySet="Exam" />
           </AssociationSet>
           <AssociationSet Name="FK__Engineer__Employ__534D60F1" Association="Ucheb_prModel.FK__Engineer__Employ__534D60F1">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Engineer" EntitySet="Engineer" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Exam__Employee_I__5535A963" Association="Ucheb_prModel.FK__Exam__Employee_I__5535A963">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Exam" EntitySet="Exam" />
           </AssociationSet>
           <AssociationSet Name="FK__Head_of_D__Emplo__571DF1D5" Association="Ucheb_prModel.FK__Head_of_D__Emplo__571DF1D5">
             <End Role="Employee" EntitySet="Employee" />
@@ -525,13 +524,17 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Lecturer" EntitySet="Lecturer" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__Number__59FA5E80" Association="Ucheb_prModel.FK__Student__Number__59FA5E80">
-            <End Role="Specialization" EntitySet="Specialization" />
-            <End Role="Student" EntitySet="Student" />
+          <AssociationSet Name="FK_Exam_Employee" Association="Ucheb_prModel.FK_Exam_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Exam" EntitySet="Exam" />
           </AssociationSet>
           <AssociationSet Name="FK_Exam_Student" Association="Ucheb_prModel.FK_Exam_Student">
             <End Role="Student" EntitySet="Student" />
             <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Number__59FA5E80" Association="Ucheb_prModel.FK__Student__Number__59FA5E80">
+            <End Role="Specialization" EntitySet="Specialization" />
+            <End Role="Student" EntitySet="Student" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Application">
@@ -575,7 +578,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Instructor" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Department" Relationship="Ucheb_prModel.FK__Disciplin__Instr__5165187F" FromRole="Discipline" ToRole="Department" />
-          <NavigationProperty Name="Exam" Relationship="Ucheb_prModel.FK__Exam__Code__5441852A" FromRole="Discipline" ToRole="Exam" />
+          <NavigationProperty Name="Exam" Relationship="Ucheb_prModel.FK_Exam_Discipline" FromRole="Discipline" ToRole="Exam" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -589,9 +592,9 @@
           <Property Name="Supervisor" Type="Int32" />
           <NavigationProperty Name="Department" Relationship="Ucheb_prModel.FK__Employee__Code__52593CB8" FromRole="Employee" ToRole="Department" />
           <NavigationProperty Name="Engineer" Relationship="Ucheb_prModel.FK__Engineer__Employ__534D60F1" FromRole="Employee" ToRole="Engineer" />
-          <NavigationProperty Name="Exam" Relationship="Ucheb_prModel.FK__Exam__Employee_I__5535A963" FromRole="Employee" ToRole="Exam" />
           <NavigationProperty Name="Head_of_Department" Relationship="Ucheb_prModel.FK__Head_of_D__Emplo__571DF1D5" FromRole="Employee" ToRole="Head_of_Department" />
           <NavigationProperty Name="Lecturer" Relationship="Ucheb_prModel.FK__Lecturer__Employ__5812160E" FromRole="Employee" ToRole="Lecturer" />
+          <NavigationProperty Name="Exam" Relationship="Ucheb_prModel.FK_Exam_Employee" FromRole="Employee" ToRole="Exam" />
         </EntityType>
         <EntityType Name="Engineer">
           <Key>
@@ -600,6 +603,21 @@
           <Property Name="Employee_ID" Type="Int32" Nullable="false" />
           <Property Name="Specialization" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Employee" Relationship="Ucheb_prModel.FK__Engineer__Employ__534D60F1" FromRole="Engineer" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Code" Type="Int32" />
+          <Property Name="Registration_Number" Type="Int32" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Auditorium" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Grade" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Discipline" Relationship="Ucheb_prModel.FK_Exam_Discipline" FromRole="Exam" ToRole="Discipline" />
+          <NavigationProperty Name="Employee" Relationship="Ucheb_prModel.FK_Exam_Employee" FromRole="Exam" ToRole="Employee" />
+          <NavigationProperty Name="Student" Relationship="Ucheb_prModel.FK_Exam_Student" FromRole="Exam" ToRole="Student" />
         </EntityType>
         <EntityType Name="Faculty">
           <Key>
@@ -651,8 +669,8 @@
           <Property Name="Registration_Number" Type="Int32" Nullable="false" />
           <Property Name="Number" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Specialization" Relationship="Ucheb_prModel.FK__Student__Number__59FA5E80" FromRole="Student" ToRole="Specialization" />
           <NavigationProperty Name="Exam" Relationship="Ucheb_prModel.FK_Exam_Student" FromRole="Student" ToRole="Exam" />
+          <NavigationProperty Name="Specialization" Relationship="Ucheb_prModel.FK__Student__Number__59FA5E80" FromRole="Student" ToRole="Specialization" />
         </EntityType>
         <EntityType Name="Students">
           <Key>
@@ -664,22 +682,15 @@
           <Property Name="School" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Scores" Type="Double" />
         </EntityType>
-        <EntityType Name="Exam">
+        <EntityType Name="sysdiagrams">
           <Key>
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Registration_Number" />
-            <PropertyRef Name="Employee_ID" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Code" Type="Int32" Nullable="false" />
-          <Property Name="Registration_Number" Type="Int32" Nullable="false" />
-          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
-          <Property Name="Auditorium" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Grade" Type="Int32" />
-          <NavigationProperty Name="Discipline" Relationship="Ucheb_prModel.FK__Exam__Code__5441852A" FromRole="Exam" ToRole="Discipline" />
-          <NavigationProperty Name="Employee" Relationship="Ucheb_prModel.FK__Exam__Employee_I__5535A963" FromRole="Exam" ToRole="Employee" />
-          <NavigationProperty Name="Student" Relationship="Ucheb_prModel.FK_Exam_Student" FromRole="Exam" ToRole="Student" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Gymnasts">
           <Key>
@@ -783,8 +794,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Exam__Code__5441852A">
-          <End Type="Ucheb_prModel.Discipline" Role="Discipline" Multiplicity="1" />
+        <Association Name="FK_Exam_Discipline">
+          <End Type="Ucheb_prModel.Discipline" Role="Discipline" Multiplicity="0..1" />
           <End Type="Ucheb_prModel.Exam" Role="Exam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Discipline">
@@ -807,20 +818,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Exam__Employee_I__5535A963">
-          <End Type="Ucheb_prModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="Ucheb_prModel.Exam" Role="Exam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="Employee_ID" />
-            </Principal>
-            <Dependent Role="Exam">
-              <PropertyRef Name="Employee_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Head_of_D__Emplo__571DF1D5">
-          <End Type="Ucheb_prModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Ucheb_prModel.Employee" Role="Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Ucheb_prModel.Head_of_Department" Role="Head_of_Department" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -832,7 +833,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Lecturer__Employ__5812160E">
-          <End Type="Ucheb_prModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Ucheb_prModel.Employee" Role="Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Ucheb_prModel.Lecturer" Role="Lecturer" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -840,6 +843,30 @@
             </Principal>
             <Dependent Role="Lecturer">
               <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Employee">
+          <End Type="Ucheb_prModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="Ucheb_prModel.Exam" Role="Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Student">
+          <End Type="Ucheb_prModel.Student" Role="Student" Multiplicity="0..1" />
+          <End Type="Ucheb_prModel.Exam" Role="Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Registration_Number" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="Registration_Number" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -852,18 +879,6 @@
             </Principal>
             <Dependent Role="Student">
               <PropertyRef Name="Number" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Exam_Student">
-          <End Type="Ucheb_prModel.Student" Role="Student" Multiplicity="1" />
-          <End Type="Ucheb_prModel.Exam" Role="Exam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Student">
-              <PropertyRef Name="Registration_Number" />
-            </Principal>
-            <Dependent Role="Exam">
-              <PropertyRef Name="Registration_Number" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -932,6 +947,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Exam">
+            <EntityTypeMapping TypeName="Ucheb_prModel.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Auditorium" ColumnName="Auditorium" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Registration_Number" ColumnName="Registration_Number" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Faculty">
             <EntityTypeMapping TypeName="Ucheb_prModel.Faculty">
               <MappingFragment StoreEntitySet="Faculty">
@@ -994,15 +1022,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Exam">
-            <EntityTypeMapping TypeName="Ucheb_prModel.Exam">
-              <MappingFragment StoreEntitySet="Exam">
-                <ScalarProperty Name="Grade" ColumnName="Grade" />
-                <ScalarProperty Name="Auditorium" ColumnName="Auditorium" />
-                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
-                <ScalarProperty Name="Registration_Number" ColumnName="Registration_Number" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Ucheb_prModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

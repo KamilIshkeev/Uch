@@ -29,9 +29,9 @@ namespace Uch.Base
     
         public virtual Department Department { get; set; }
         public virtual Engineer Engineer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Exam> Exam { get; set; }
         public virtual Head_of_Department Head_of_Department { get; set; }
         public virtual Lecturer Lecturer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Exam> Exam { get; set; }
     }
 }

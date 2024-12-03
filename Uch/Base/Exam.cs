@@ -15,11 +15,12 @@ namespace Uch.Base
     public partial class Exam
     {
         public System.DateTime Date { get; set; }
-        public int Code { get; set; }
-        public int Registration_Number { get; set; }
-        public int Employee_ID { get; set; }
+        public Nullable<int> Code { get; set; }
+        public Nullable<int> Registration_Number { get; set; }
+        public Nullable<int> Employee_ID { get; set; }
         public string Auditorium { get; set; }
         public Nullable<int> Grade { get; set; }
+        public int id { get; set; }
     
         public virtual Discipline Discipline { get; set; }
         public virtual Employee Employee { get; set; }

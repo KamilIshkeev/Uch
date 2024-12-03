@@ -12,20 +12,12 @@ namespace Uch.Base
     using System;
     using System.Collections.Generic;
     
-    public partial class Student
+    public partial class sysdiagrams
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Student()
-        {
-            this.Exam = new HashSet<Exam>();
-        }
-    
-        public int Registration_Number { get; set; }
-        public string Number { get; set; }
-        public string Last_Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Exam> Exam { get; set; }
-        public virtual Specialization Specialization { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

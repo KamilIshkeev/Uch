@@ -239,7 +239,7 @@ namespace Uch.Pages
 
         private void Button_Delete(object sender, RoutedEventArgs e)
         {
-           
+          
             var cood = Convert.ToInt32(txt_code.Text);
             if (cood != null)
             {

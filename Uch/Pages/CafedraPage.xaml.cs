@@ -53,20 +53,12 @@ namespace Uch.Pages
 
 
 
-        private void Button_Click_Close(object sender, RoutedEventArgs e)
-        {
-            Redakt_Panel.Visibility = Visibility.Hidden;
-            Rect.Visibility = Visibility.Hidden;
-            ButtonAdd.Visibility = Visibility.Hidden;
-            ButtonClose.Visibility = Visibility.Hidden;
-            ButtonDelete.Visibility = Visibility.Hidden;
-            ButtonEdit.Visibility = Visibility.Hidden;
-        }
+       
 
         private void Button_Add(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 var Codes = Convert.ToInt32(txt_code.Text);
                 string nazv = txt_nazvanie.Text;
                 var voll = Convert.ToInt32(txt_vol.Text);
@@ -74,6 +66,7 @@ namespace Uch.Pages
                 var truc  = connect.db.Department.FirstOrDefault(id => id.Name == instruct);
             var struc = (truc as Department); 
             string inst = struc.Code;
+                string fc = struc.Faculty;
                
 
                 var Disciplines = new Discipline()
@@ -84,18 +77,30 @@ namespace Uch.Pages
                     Instructor = inst
 
                 };
+            if (inst != struc.Code) { 
+                var Departments = new Department()
+                {
+                    Code = inst,
+                    Name = instruct,
+                    Faculty = fc,
+
+                };
+                connect.db.Department.Add(Departments);
+                connect.db.SaveChanges();
+            }
 
                 connect.db.Discipline.Add(Disciplines);
                 connect.db.SaveChanges();
+                
                 MessageBox.Show("Строка была успешно добавлена");
                 ListCafedra.ItemsSource = connect.db.Discipline.ToList();
                 ListCafedra.ItemsSource = connect.db.Cafedra.ToList();
                 return;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Вы не ввели все данные!");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Вы не ввели все данные!");
+            //}
         }
         private void Button_Edit(object sender, RoutedEventArgs e)
         {
@@ -108,7 +113,8 @@ namespace Uch.Pages
                 var truc = connect.db.Department.FirstOrDefault(id => id.Name == instruct);
                 var struc = (truc as Department);
                 string inst = struc.Code;
-               
+                string fc = struc.Faculty;
+
 
                 var Disciplines = new Discipline()
                 {
@@ -118,8 +124,17 @@ namespace Uch.Pages
                     Instructor = inst
 
                 };
+                var Departments = new Department()
+                {
+                    Code = inst,
+                    Name = instruct,
+                    Faculty = fc,
+
+                };
 
                 connect.db.Discipline.AddOrUpdate(Disciplines);
+                connect.db.SaveChanges();
+                connect.db.Department.AddOrUpdate(Departments);
                 connect.db.SaveChanges();
                 MessageBox.Show("Строка была успешно добавлена");
                 ListCafedra.ItemsSource = connect.db.Discipline.ToList();
@@ -137,10 +152,17 @@ namespace Uch.Pages
             try
             {
                 var cood = Convert.ToInt32(txt_code.Text);
+                //var cod = txt_code.Text;
+                var truc = connect.db.Discipline.FirstOrDefault(id => id.Code == cood);
+                var struc = (truc as Discipline);
+                string inst = struc.Instructor;
                 if (cood != null)
                 {
-                    Discipline even = (from r in connect.db.Discipline where r.Code == cood select r).SingleOrDefault();
-                    connect.db.Discipline.Remove(even);
+                    Discipline eve = (from r in connect.db.Discipline where r.Code == cood select r).SingleOrDefault();
+                    connect.db.Discipline.Remove(eve);
+                    connect.db.SaveChanges();
+                    Department even = (from r in connect.db.Department where r.Code == inst select r).SingleOrDefault();
+                    connect.db.Department.Remove(even);
                     connect.db.SaveChanges();
                     ListCafedra.ItemsSource = connect.db.Discipline.ToList();
                     ListCafedra.ItemsSource = connect.db.Cafedra.ToList();

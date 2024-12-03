@@ -133,15 +133,7 @@ namespace Uch.Pages
 
 
 
-        private void Button_Click_Close(object sender, RoutedEventArgs e)
-        {
-            Redakt_Panel.Visibility = Visibility.Hidden;
-            Rect.Visibility = Visibility.Hidden;
-            ButtonAdd.Visibility = Visibility.Hidden;
-            ButtonClose.Visibility = Visibility.Hidden;
-            ButtonDelete.Visibility = Visibility.Hidden;
-            ButtonEdit.Visibility = Visibility.Hidden;
-        }
+        
 
 
         
@@ -164,10 +156,17 @@ namespace Uch.Pages
                     Faculty = fc,
 
                 };
+                var Facults = new Faculty()
+                {
+                    Abbreviation = fc,
+                    Name = cafe
+
+                };
 
                 connect.db.Department.Add(Departments);
                 connect.db.SaveChanges();
-                
+                connect.db.Faculty.Add(Facults);
+                connect.db.SaveChanges();
                 MessageBox.Show("Строка была успешно отредактированна");
                 ListFaculty.ItemsSource = connect.db.Department.ToList();
                 ListFaculty.ItemsSource = connect.db.Discip.ToList();
@@ -196,8 +195,16 @@ namespace Uch.Pages
                     Faculty = fc,
 
                 };
+                var Facults = new Faculty()
+                {
+                    Abbreviation = fc,
+                    Name = cafe
+
+                };
 
                 connect.db.Department.AddOrUpdate(Departments);
+                connect.db.SaveChanges();
+                connect.db.Faculty.AddOrUpdate(Facults);
                 connect.db.SaveChanges();
                 MessageBox.Show("Строка была успешно отредактированна");
                 ListFaculty.ItemsSource = connect.db.Department.ToList();
@@ -217,8 +224,8 @@ namespace Uch.Pages
                 var cood = txt_code.Text;
                 if (cood != null)
                 {
-                    Department even = (from r in connect.db.Department where r.Code == cood select r).SingleOrDefault();
-                    connect.db.Department.Remove(even);
+                    Department eve = (from r in connect.db.Department where r.Code == cood select r).SingleOrDefault();
+                    connect.db.Department.Remove(eve);
                     connect.db.SaveChanges();
                     ListFaculty.ItemsSource = connect.db.Department.ToList();
                     ListFaculty.ItemsSource = connect.db.Discip.ToList();
@@ -226,8 +233,10 @@ namespace Uch.Pages
                 }
                 else
                 {
-                    MessageBox.Show("Для удаления впишите Code");
+                    MessageBox.Show("Для удаления Дисциплины впишите Code");
                 }
+                
+                
             }
             catch (Exception ex)
             {
@@ -255,6 +264,33 @@ namespace Uch.Pages
             else if (filter.SelectedValue == f2) { fil = 2; }
 
 
+        }
+
+        private void Button_Delete_F(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                
+                var cod = txt_codf.Text;
+                if (cod != null)
+                {
+                    Faculty even = (from r in connect.db.Faculty where r.Abbreviation == cod select r).SingleOrDefault();
+                    connect.db.Faculty.Remove(even);
+                    connect.db.SaveChanges();
+                    ListFaculty.ItemsSource = connect.db.Department.ToList();
+                    ListFaculty.ItemsSource = connect.db.Discip.ToList();
+                    MessageBox.Show("Информация о строке удалена");
+                }
+                else
+                {
+                    MessageBox.Show("Для удаления Факультета впишите Аббревиатуру");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Вы не ввели все данные!");
+            }
         }
     }
 }

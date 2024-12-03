@@ -10,11 +10,11 @@
 
     <Grid>
         <Button x:Name="btn_disp" Content="Дисциплины" HorizontalAlignment="Center" Height="44" Margin="0,95,0,0" VerticalAlignment="Top" Width="204" Click="Button_Click"/>
-        <Button x:Name="btn_emp" Content="Сотрудники" HorizontalAlignment="Center" Height="44" Margin="0,155,0,0" VerticalAlignment="Top" Width="204" Click="Button_Click_1"/>
-        <Button x:Name="btn_fuclt" Content="Факультет" HorizontalAlignment="Center" Height="44" Margin="0,215,0,0" VerticalAlignment="Top" Width="204" Click="Button_Click_2"/>
+        <Button x:Name="btn_emp" Content="Сотрудники" HorizontalAlignment="Center" Height="44" Margin="0,213,0,0" VerticalAlignment="Top" Width="204" Click="Button_Click_1"/>
+        <Button x:Name="btn_fuclt" Content="Факультет" HorizontalAlignment="Center" Height="44" Margin="0,340,0,0" VerticalAlignment="Top" Width="204" Click="Button_Click_2"/>
         <Button x:Name="btn_cafed" Content="Кафедра" HorizontalAlignment="Center" Height="44" Margin="0,275,0,0" VerticalAlignment="Top" Width="204" Click="Button_Click_3"/>
         <TextBlock x:Name="txt_Nam" HorizontalAlignment="Left" Height="22" Margin="340,29,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="129"/>
-        <Button x:Name="btn_exam" Content="Экзамен" HorizontalAlignment="Center" Height="44" Margin="0,340,0,0" VerticalAlignment="Top" Width="204" Click="Button_Click_4"/>
+        <Button x:Name="btn_exam" Content="Экзамен" HorizontalAlignment="Center" Height="44" Margin="0,153,0,0" VerticalAlignment="Top" Width="204" Click="Button_Click_4"/>
 
     </Grid>
 </Page>

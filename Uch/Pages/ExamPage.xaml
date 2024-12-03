@@ -18,7 +18,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Registration_Number}" Width="70" Header="Рег номер"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Employee_ID}" Width="90" Header="Экзаменатор"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Auditorium}" Width="80" Header="Аудитория"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Grade}" Width="60" Header="Оценка"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Grade}" Width="55" Header="Оценка"/>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -9,7 +9,7 @@
       Title="DisciplinePage">
 
     <Grid>
-        <ListView x:Name="ListDisip" Background="#FF4F93B7" Margin="23,175,400,95" Visibility="Visible" BorderBrush="White" Foreground="White">
+        <ListView x:Name="ListDisip" Background="#FF4F93B7" Margin="23,175,375,95" Visibility="Visible" BorderBrush="White" Foreground="White">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Code}" Width="40" Header="Код"/>
@@ -29,7 +29,6 @@
         <Button Content="Добавить" Height="34" Margin="469,240,226,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonAdd" Click="Button_Add" />
         <Button Content="Изменить" Height="34" Margin="469,286,226,0" BorderBrush="#FF4F93B7" VerticalAlignment="Top" x:Name="ButtonEdit" Click="Button_Edit"/>
         <Button Content="Удалить" Height="34" Margin="469,332,226,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonDelete" Click="Button_Delete"/>
-        <Button Content="✕" Margin="461,187,292,0" VerticalAlignment="Top" Height="32" RenderTransformOrigin="1.58,0.34" x:Name="ButtonClose" Click="Button_Click_Close" FontSize="7"></Button>
         <TextBlock HorizontalAlignment="Center" Margin="0,12,0,0" TextWrapping="Wrap" Text="Дисциплина" VerticalAlignment="Top" Height="38" Width="128" FontSize="22"/>
         <TextBlock x:Name="txt_Nam" HorizontalAlignment="Center" Margin="0,72,0,0" TextWrapping="Wrap" Text="Дисциплина" VerticalAlignment="Top" Height="38" Width="128" FontSize="20"/>
     </Grid>

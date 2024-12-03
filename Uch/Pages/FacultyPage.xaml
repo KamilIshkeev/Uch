@@ -15,7 +15,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Code}" Width="40" Header="Код"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Дисциплина}" Width="100" Header="Кафедра"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Факультет}" Width="90" Header="Факультет"/>
-                    
+
                 </GridView>
             </ListView.View>
         </ListView>
@@ -24,11 +24,11 @@
             <TextBox TextWrapping="Wrap" Text="Код" Width="143" Background="White" BorderBrush="#FF4F93B7" x:Name="txt_code" Visibility="Visible" Height="31" />
             <TextBox TextWrapping="Wrap" Text="Кафедра" Width="143" Background="White" BorderBrush="#FF4F93B7" x:Name="txt_nazvanie" Visibility="Visible" Height="31"/>
             <TextBox TextWrapping="Wrap" Text="Факультет" Width="143" Background="White" BorderBrush="#FF4F93B7" x:Name="txt_vol" Visibility="Visible" Height="31"/>
+            <TextBox TextWrapping="Wrap" Text="Аббревиатура Факультета" Width="144" Background="White" BorderBrush="#FF4F93B7" x:Name="txt_codf" Visibility="Visible" Height="39"/>
         </StackPanel>
         <Button Content="Добавить" Height="34" Margin="504,243,210,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonAdd" Click="Button_Add" />
         <Button Content="Изменить" Height="34" Margin="504,289,210,0" BorderBrush="#FF4F93B7" VerticalAlignment="Top" x:Name="ButtonEdit" Click="Button_Edit"/>
         <Button Content="Удалить" Height="34" Margin="504,335,210,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonDelete" Click="Button_Delete"/>
-        <Button Content="✕" Margin="496,190,259,0" VerticalAlignment="Top" Height="32" RenderTransformOrigin="1.58,0.34" x:Name="ButtonClose" Click="Button_Click_Close" FontSize="7"></Button>
         <TextBlock HorizontalAlignment="Center" Margin="0,12,0,0" TextWrapping="Wrap" Text="Факультет" VerticalAlignment="Top" Height="38" Width="128" FontSize="22"/>
         <TextBlock HorizontalAlignment="Left" Margin="31,144,0,0" TextWrapping="Wrap" Text="Поиск по ФИО: " VerticalAlignment="Top" Height="26" Width="143" FontSize="14"/>
         <TextBlock x:Name="txt_Nam" HorizontalAlignment="Center" Margin="0,72,0,0" TextWrapping="Wrap" Text="Сотрудник" VerticalAlignment="Top" Height="38" Width="128" FontSize="20"/>
@@ -38,6 +38,7 @@
             <ComboBoxItem x:Name="f1" Content="Дисциплина"/>
             <ComboBoxItem x:Name="f2" Content="Факультет"/>
         </ComboBox>
+        <Button Content="Удалить Факультет" Height="34" Margin="489,419,189,0" VerticalAlignment="Top" BorderBrush="#FF4F93B7" x:Name="ButtonDelete_F" Click="Button_Delete_F"/>
 
     </Grid>
 </Page>

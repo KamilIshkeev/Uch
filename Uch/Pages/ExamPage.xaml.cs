@@ -23,7 +23,7 @@ using ListViewItem = System.Windows.Controls.ListViewItem;
 using MessageBox = System.Windows.MessageBox;
 using System.Data.Entity;
 using System.Windows.Markup;
-
+ 
 
 
 
@@ -54,14 +54,16 @@ namespace Uch.Pages
             ListEx.ItemsSource = originalList;
             txt_Nam.Text = employee.Last_Name;
 
-            
+
             if (employee.Position == "преподаватель")
-            {
+            { 
                 txt_code.Visibility = Visibility.Hidden;
                 txt_code_e.Visibility = Visibility.Hidden;
                 txt_audit.Visibility = Visibility.Hidden;
                 ButtonAdd.Visibility = Visibility.Hidden;
-                ButtonDelete.Visibility = Visibility.Hidden;    
+                ButtonDelete.Visibility = Visibility.Hidden;
+                txt_data.Visibility = Visibility.Hidden;
+                txt_reg.Visibility = Visibility.Hidden;
             }
 
 
@@ -114,14 +116,14 @@ namespace Uch.Pages
         {
 
 
-            try
-            {
+            //try
+            //{
                 var data = Convert.ToDateTime(txt_data.Text);
                 var Codes = Convert.ToInt32(txt_code.Text);
                 var regn = Convert.ToInt32(txt_reg.Text);
                 var empid = Convert.ToInt32(txt_code_e.Text);
                 var auditor = txt_audit.Text;
-                var grad = Convert.ToInt32(txt_grade);
+                var grad = Convert.ToInt32(txt_grade.Text);
 
 
 
@@ -146,32 +148,34 @@ namespace Uch.Pages
                 ListEx.ItemsSource = connect.db.Exam.ToList();
                 MessageBox.Show("Строка была успешно добавлена");
                 return;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Вы не ввели все данные!");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Вы не ввели все данные!");
+            //}
         }
         private void Button_Edit(object sender, RoutedEventArgs e)
         {
             try
             {
-                var data = Convert.ToDateTime(txt_data.Text);
-                var Codes = Convert.ToInt32(txt_code.Text);
-                var regn = Convert.ToInt32(txt_reg.Text);
-                var empid = Convert.ToInt32(txt_code_e.Text);
-                var auditor = txt_audit.Text;
-                var grad = Convert.ToInt32(txt_grade);
-
+                var id1 = Convert.ToInt32(txt_id.Text);
+                //var data = Convert.ToDateTime(txt_data.Text);
+                //var Codes = Convert.ToInt32(txt_code.Text);
+                //var regn = Convert.ToInt32(txt_reg.Text);
+                //var empid = Convert.ToInt32(txt_code_e.Text);
+                //var auditor = txt_audit.Text;
+                var grad = Convert.ToInt32(txt_grade.Text);
+            var emol = connect.db.Exam.FirstOrDefault(id => id.id == id1);
 
 
                 var Exams = new Exam
                 {
-                    Date = data,
-                    Code = Codes,
-                    Registration_Number = regn,
-                    Employee_ID = empid,
-                    Auditorium = auditor,
+                    id = id1,
+                    Date = emol.Date,
+                    Code = emol.Code,   
+                    Registration_Number = emol.Registration_Number,
+                    Employee_ID = emol.Employee_ID,
+                    Auditorium = emol.Auditorium,
                     Grade = grad
                 };
 
@@ -179,7 +183,7 @@ namespace Uch.Pages
 
 
 
-                connect.db.Exam.Add(Exams);
+                connect.db.Exam.AddOrUpdate(Exams);
                 connect.db.SaveChanges();
 
 
@@ -274,6 +278,8 @@ namespace Uch.Pages
                     connect.db.SaveChanges();
                     ListEx.ItemsSource = connect.db.Exam.ToList();
                 }
+                MessageBox.Show($"Оценка отредактированна на: {txt_grade.Text}");
+
             }
             catch (Exception ex)
             {

@@ -29,19 +29,20 @@ namespace Uch.Pages
             ListDisip.ItemsSource = connect.db.Discipline.ToList();
             _employee = employee;
             
-            txt_Nam.Text = _employee.Last_Name; 
+            txt_Nam.Text = _employee.Last_Name;
+
+            if (employee.Position == "преподаватель")
+            {
+                Rect.Visibility = Visibility.Hidden;
+                Redakt_Panel.Visibility = Visibility.Hidden;
+                ButtonAdd.Visibility = Visibility.Hidden;
+                ButtonDelete.Visibility = Visibility.Hidden;
+                ButtonEdit.Visibility = Visibility.Hidden;
+            }
         }
 
 
-        private void Button_Click_Close(object sender, RoutedEventArgs e)
-        {
-            Redakt_Panel.Visibility = Visibility.Hidden;
-            Rect.Visibility = Visibility.Hidden;
-            ButtonAdd.Visibility = Visibility.Hidden;
-            ButtonClose.Visibility = Visibility.Hidden;
-            ButtonDelete.Visibility = Visibility.Hidden;
-            ButtonEdit.Visibility = Visibility.Hidden;
-        }
+        
 
         private void Button_Add(object sender, RoutedEventArgs e)
         {
@@ -65,6 +66,7 @@ namespace Uch.Pages
 
                 connect.db.Discipline.Add(Disciplines);
                 connect.db.SaveChanges();
+                ListDisip.ItemsSource = connect.db.Discipline.ToList();
                 MessageBox.Show("Дисциплина была успешно добавлена");
                 return;
             }
@@ -94,6 +96,7 @@ namespace Uch.Pages
 
                 connect.db.Discipline.AddOrUpdate(Disciplines);
                 connect.db.SaveChanges();
+                ListDisip.ItemsSource = connect.db.Discipline.ToList();
                 MessageBox.Show("Дисциплина была успешно отредактированна");
                 return;
             }

@@ -32,10 +32,10 @@ namespace Uch.Pages
             _mainWindow.BtnMenu();
             if (employee.Position == "зав. кафедрой")
             {
-                btn_disp.Visibility = Visibility.Hidden;
-                btn_emp.Visibility = Visibility.Hidden;
+                btn_disp.Visibility = Visibility.Visible;
+                btn_emp.Visibility = Visibility.Visible;
                 btn_cafed.Visibility = Visibility.Visible;
-                btn_fuclt.Visibility = Visibility.Visible;
+                btn_fuclt.Visibility = Visibility.Hidden;
                 btn_exam.Visibility = Visibility.Visible;
             }
             else if (employee.Position == "инженер")

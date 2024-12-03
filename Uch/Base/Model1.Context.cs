@@ -31,6 +31,7 @@ namespace Uch.Base
         public virtual DbSet<Discipline> Discipline { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Engineer> Engineer { get; set; }
+        public virtual DbSet<Exam> Exam { get; set; }
         public virtual DbSet<Faculty> Faculty { get; set; }
         public virtual DbSet<Governance> Governance { get; set; }
         public virtual DbSet<Head_of_Department> Head_of_Department { get; set; }
@@ -38,7 +39,7 @@ namespace Uch.Base
         public virtual DbSet<Specialization> Specialization { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Students> Students { get; set; }
-        public virtual DbSet<Exam> Exam { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Gymnasts> Gymnasts { get; set; }
         public virtual DbSet<Cafedra> Cafedra { get; set; }
         public virtual DbSet<Discip> Discip { get; set; }

@@ -44,7 +44,7 @@ namespace Uch.Pages
 
             if ( txtLogin.Text != "Введите логин" && txtLogin.Text != null && txtLogin.Text != "" && txtLogin.Text != " ") 
             {
-                MessageBox.Show("Хм я что-то забыл а да Поздравляю вы проши игру!");
+                MessageBox.Show("Поздравляю вы прошли!");
                 login_user = Convert.ToInt32(txtLogin.Text);
                 id = login_user;
                 
